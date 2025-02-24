@@ -1,0 +1,41 @@
+# Onn 4k Streaming Box Cleanup
+
+I just purchased the new Onn 4k box from Walmart; here are the steps I took to change the launcher and debloat the preinstalled apps.
+
+- Enable "Developer Options"
+    - Go to Settings -> About -> click OS Build 4-5x
+- Enter "Developer Options"
+    - Turn on "USB debugging"
+- Connect Onn box to PC via microUSB cable with adb installed and enabled on the PC; the Onn box should be connected to the TV via HDMI.
+- On pc, run "adb connect IP_OF_ONN_BOX". You'll need to approve this connection using the remote control of the Onn box on the TV screen.
+- Once connected, you'll first want to install the replacement launcher you'll be using instead of the stock launcher. It is important that you install / sideload the new launcher FIRST, so that the box can access this once the stock launcher is disabled in the next step. I like using flauncher, which can be installed directly from the Play Store. Alternatively, you can sideload your launcher of choice using the following command:
+    - "adb install LAUNCHER.apk"
+    - Some alternate launcher options available in the Play Store:
+        - fLauncher: [https://play.google.com/store/apps/details?id=me.efesser.flauncher&hl=en_US&gl=US](https://play.google.com/store/apps/details?id=me.efesser.flauncher&hl=en_US&gl=US)
+        - Projectivy Launcher: [https://play.google.com/store/apps/details?id=com.spocky.projengmenu&hl=en_US&gl=US](https://play.google.com/store/apps/details?id=com.spocky.projengmenu&hl=en_US&gl=US)
+- Next, you will disable the stock launcher to keep it from running:
+    - "adb shell pm disable-user --user 0 com.google.android.apps.tv.launcherx"
+    - "adb shell pm disable-user --user 0 com.google.android.tungsten.setupwraith"
+- Now that the stock launcher is disabled, and the replacement launcher is active, you can now proceed with removing the pre-installed apps. For some reason, switching the launcher disconnected my device from wifi, so you may need to reconnect to wifi before proceeding.
+- You can of course keep any apps you wish to use, but I'm operating under the assumption you want a "clean" experience.
+    - "adb shell pm uninstall -k --user 0 com.disney.disneyplus"
+    - "adb shell pm uninstall -k --user 0 [com.google.android.play.games](https://com.google.android.play.games/)"
+    - "adb shell pm uninstall -k --user 0 com.google.android.videos"
+    - "adb shell pm uninstall -k --user 0 com.hbo.hbonow"
+    - "adb shell pm uninstall -k --user 0 com.amazon.amazonvideo.livingroom"
+    - "adb shell pm uninstall -k --user 0 com.google.android.youtube.tvmusic"
+    - "adb shell pm uninstall -k --user 0 [com.google.android.youtube.tv](https://com.google.android.youtube.tv/)"
+    - "adb shell pm uninstall -k --user 0 [com.cbs.ott](https://com.cbs.ott/)"
+    - "adb shell pm uninstall -k --user 0 com.espn.score_center"
+    - "adb shell pm uninstall -k --user 0 com.apple.atve.androidtv.appletv"
+    - "adb shell pm uninstall -k --user 0 com.hulu.livingroomplus"
+- You can see what other apps are installed using the following command; you can uninstall other packages using the format of the commands above. I would caution against uninstalling / disabling packages that you are not absolutely certain of their function; you can very easily remove something important to the device's core functionality.
+    - "adb shell cmd package list packages"
+- At this point, you might have other apps you wish to sideload (e.x. STubeNext, IPTV, etc). You can do so using adb and the following command:
+    - "adb install APP.apk"
+- From [/u/truecitrus](https://www.reddit.com/u/truecitrus/):
+    - You may wish to change the default DNS provider to an ad-blocking DNS provider. Example using Adguard provided below, but you can use any DNS-over-HTTPS (DoH) provider that you prefer:
+    - "adb shell settings put global private_dns_mode hostname"
+    - "adb shell settings put global private_dns_specifier [dns.adguard-dns.com/dns-query](https://dns.adguard-dns.com/dns-query)"
+- From [/u/thangcuoi](https://www.reddit.com/u/thangcuoi/):
+    - The app "Button Mapper" will allow you to change the buttons connected to specific services to whatever apps you wish to launch. I was able to use this app to direct the YouTube button to launch STube, as well as have dedicated buttons for Plex, Jellyfin, etc. Button Mapper works by intercepting the button press on the remote, and does not require root access to the device. It is available in the Play Store: [https://play.google.com/store/apps/details?id=flar2.homebutton&hl=en_US&gl=US](https://play.google.com/store/apps/details?id=flar2.homebutton&hl=en_US&gl=US)

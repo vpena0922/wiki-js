@@ -1,0 +1,9 @@
+# HomeLab
+
+[DHCP](HomeLab%2022bb8f4a96a34d5bac35459699217479/DHCP%200146ced92d6f4383bbd6b6dceceed213.md)
+
+[DNS](HomeLab%2022bb8f4a96a34d5bac35459699217479/DNS%20220862c325ff4d82823d7a02e5a6d1cb.md)
+
+[Network Diagram](HomeLab%2022bb8f4a96a34d5bac35459699217479/Network%20Diagram%20b9d86a3dd4134fc6a7a4d29034642abd.md)
+
+[Duo LDAP Gateway](HomeLab%2022bb8f4a96a34d5bac35459699217479/Duo%20LDAP%20Gateway%20a1c5e525dfcc4477a25c8fc0af8c9cb0.md)
